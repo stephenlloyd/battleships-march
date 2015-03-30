@@ -53,7 +53,7 @@ class Board
   end
 
   def coordinate_on_board? coordinate
-    grid.keys.include? coordinate
+    !grid[coordinate].nil?
   end
 
   def hit cell
