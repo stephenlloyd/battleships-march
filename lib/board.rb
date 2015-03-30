@@ -8,13 +8,15 @@ class Board
     size = options.fetch(:size, DEFAULT_SIZE)
     cell = options.fetch(:cell)
     @number_of_pieces = options.fetch(:number_of_pieces, DEFAULT_NUMBER_OF_PIECES)
+    @grid = create_grid(size, cell)
+  end
 
-    @grid = {}
+  def create_grid size, cell
     letter_range_based_on_size(size).map do |letter|
       (1..dimension_size(size)).map do |number|
-        @grid["#{letter}#{number}".to_sym] = cell.new
+        {"#{letter}#{number}".to_sym => cell.new }
       end
-    end
+    end.flatten.reduce(:merge)
   end
 
   def dimension_size size
